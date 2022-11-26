@@ -34,7 +34,7 @@ class AboutPageTests(SimpleTestCase):
     def setUp(self):
         url = reverse('pages:about')
         self.response = self.client.get(url)
-    
+
     def test_aboutpage_status_code(self):
         self.assertEqual(self.response.status_code, 200)
 
