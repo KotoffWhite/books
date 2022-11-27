@@ -3,13 +3,17 @@ services:
   web:
     build: .
     image: kotoffwhite/web:latest
-    command: python /code/manage.py runserver 0.0.0.0:8000
+    command: python ./manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - .:/code/
     ports:
       - 8000:8000
     depends_on:
       - db
+    environment:
+      - "DJANGO_SECRET_KEY=django-insecure-^=j!xi9x)4xj=6jm5fx02xg=1y$$5texlgr+2xbz42)$$*#l7_up"
+      - "DJANGO_DEBUG=True"
+      - "DJANGO_ALLOWED_HOSTS=.herokuapp.com,localhost,127.0.0.1"
   db:
     image: postgres:11
     volumes:
