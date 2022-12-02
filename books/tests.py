@@ -60,6 +60,11 @@ class BookTests(TestCase):
         self.assertTemplateUsed(response, 'books/book_detail.html')
         self.assertContains(response, 'An excellent book!')
 
+    def test_book_detail_view_without_permissions(self):
+        self.client.login(email='reviewuser@mail.com', password='testpass123')
+        response = self.client.get(self.book.get_absolute_url())
+        self.assertEqual(response.status_code, 403)
+
     def test_book_detail_resolves_correct_view(self):
         view = resolve(f'/books/{self.book.id}/')
         self.assertEqual(view.func.__name__, BookDetailView.as_view().__name__)
